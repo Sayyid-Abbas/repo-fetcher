@@ -1,0 +1,84 @@
+/* Start Golbal Rules */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0px;
+  font-family: "Roboto", sans-serif;
+  height: calc(100vh - 100px);
+  background-color: #333;
+  animation-name: change-background;
+  animation-duration: 20s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+/* End Global Rules*/
+/* Start input */
+.input-container {
+  margin: 100px auto 0px auto;
+  width: 500px;
+  max-width: 90%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+  border: 1px solid white;
+  padding: 20px;
+  border-radius: 6px;
+}
+.input-container input[type="text"] {
+  height: 50px;
+  border-radius: 6px;
+  padding-left: 10px;
+  border: none;
+  width: 100%;
+}
+.input-container input[type="text"]:focus {
+  outline: none;
+}
+.input-container input[type="submit"] {
+  background-color: #333;
+  border: 2px solid white;
+  border-radius: 6px;
+  height: 50px;
+  width:  100px;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+.input-container input[type="submit"]:hover {
+  background-color: #4f4f4f;
+}
+/* End input */
+/* Start Table */
+table {
+  margin: 50px auto;
+  padding: 5px;
+  max-width: 100%;
+  width: 800px;
+  border: 2px solid black
+} 
+table  * {
+  background-color: #2e2e2e;
+  padding: 20px;
+  border-color: black;
+  font-size: 20px;
+  text-align: center;
+  color: white;
+}
+/* End Table */
+/* Start Animation */
+@keyframes change-background {
+  0%,100% {
+    background-color: #333;
+  }
+  50% {
+    background-color: #6d6d6d;
+  }
+}
+/* End Animation */
