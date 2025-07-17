@@ -10,11 +10,6 @@ body {
   font-family: "Roboto", sans-serif;
   height: calc(100vh - 100px);
   background-color: #333;
-  animation-name: change-background;
-  animation-duration: 20s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 /* End Global Rules*/
 /* Start input */
@@ -61,24 +56,49 @@ table {
   padding: 5px;
   max-width: 100%;
   width: 800px;
-  border: 2px solid black
 } 
 table  * {
-  background-color: #2e2e2e;
   padding: 20px;
   border-color: black;
   font-size: 20px;
   text-align: center;
   color: white;
 }
-/* End Table */
-/* Start Animation */
-@keyframes change-background {
-  0%,100% {
-    background-color: #333;
+table thead th {
+  background-color: black;
+}
+table tbody tr:nth-of-type(2n) {
+  background-color: #494949;
+}
+@media (max-width: 767px) {
+  table * {
+    font-size: 20px;
+    padding: 10px;
   }
-  50% {
-    background-color: #6d6d6d;
+  table thead {
+    display: none;
+  }
+  table tbody tr td {
+    display: block;
+    text-align: left;
+    line-height: 1.8;
+  }
+  table tbody tr td::before {
+    margin-right: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  table tbody tr td:nth-child(1)::before {
+    content: attr(data-number)": ";
+  }
+  table tbody tr td:nth-child(2)::before {
+    content: attr(data-repoName)": ";
+  }
+  table tbody tr td:nth-child(3)::before {
+    content: attr(data-ownerName)": ";
+  }
+  table tbody tr td:nth-child(4)::before {
+    content: attr(data-public)": ";
   }
 }
-/* End Animation */
+/* End Table */
