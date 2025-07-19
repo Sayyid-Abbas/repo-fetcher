@@ -82,6 +82,11 @@ function buildTable(data) {
     thOwnerName.appendChild(document.createTextNode("Owner Name"));
     thead.appendChild(thOwnerName);
 
+    let thRepoLink = document.createElement("th");
+    thRepoLink.appendChild(document.createTextNode("Repo Link"));
+    thead.appendChild(thRepoLink);
+
+
     table.appendChild(thead);
 
 
@@ -105,7 +110,16 @@ function buildTable(data) {
         tdOwnerName.appendChild(document.createTextNode(`${data[i].owner.login}`));
         tr.appendChild(tdOwnerName);
 
-        
+        let tdRepoLink = document.createElement("td");
+        tdRepoLink.setAttribute("data-link", "Repo Link");
+        let link = document.createElement("a");
+        link.target = "_blank";
+        link.href = `https://github.com/${input.value.trim()}/${data[i].name}`;
+        link.appendChild(document.createTextNode(`Visit`));
+        tdRepoLink.appendChild(link);
+        tr.appendChild(tdRepoLink);
+
+
         tbody.appendChild(tr);
     }
 
