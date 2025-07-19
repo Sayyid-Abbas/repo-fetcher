@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0px;
   font-family: "Roboto", sans-serif;
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
   background-color: #333;
 }
 /* End Global Rules*/
@@ -97,6 +97,7 @@ table tbody tr:nth-of-type(2n) {
   table * {
     font-size: 20px;
     padding: 10px;
+    max-width: 400px;
   }
   table thead {
     display: none;
@@ -105,6 +106,8 @@ table tbody tr:nth-of-type(2n) {
     display: block;
     text-align: left;
     line-height: 1.8;
+    word-break: break-all;
+    max-width: 400px;
   }
   table tbody tr td::before {
     margin-right: 5px;
