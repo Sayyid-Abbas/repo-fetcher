@@ -3,38 +3,45 @@ let submit = document.querySelector(".submit");
 let table = document.querySelector("table");
 let loader = document.querySelector(".loader");
 
-submit.onclick = () => {
+// Triger The submit Button When Clicking Enter Button
+input.addEventListener("keydown", (e) => {
+    if(e.key === "Enter") {
+        submit.click();
+    }
+});
+
+submit.onclick = async () => {
     if(input.value.trim().length === 0) {
         return;
     }
     table.innerHTML = "";
     loader.style.display = "block";
-    const data = getData(input.value.trim()).then((res) => {
-        loader.style.display = "none";
-        builTable(res);
-    }).catch(() => {
-        loader.style.display = "none";
+    const data = await getData(input.value.trim());
+    loader.style.display = "none";
+    if(data.status === 404) {
         appendNotFound();
-    });
+    } else if(data.networkError) {
+        appendNetWorkError();
+    } else {
+        builTable(data);
+    }
 };
 
 
 
 
 // Making A Request Using Promise And XHR
-const getData = function (userName) {
-    return new Promise((resolved, rejected) => {
-        let req = new XMLHttpRequest();
-        req.onload = () => {
-            if(req.readyState === 4 && req.status === 200) {
-                resolved(JSON.parse(req.responseText));
-            } else {
-                rejected("Not Found");
-            }
+const getData = async function (userName) {
+    try {
+        let myData =  await fetch(`https://api.github.com/users/${userName}/repos`);
+        if(!myData.ok) {
+            return {status: myData.status};
         }
-        req.open("GET", `https://api.github.com/users/${userName}/repos`);
-        req.send();  
-    });
+        myData = await myData.json();
+        return myData;
+    } catch(error) {
+        return {networkError: true};
+    }
 };
 
 
@@ -103,3 +110,10 @@ function appendZeroRepos() {
     caption.appendChild(document.createTextNode("The User Has Zero Public Repos"));
     table.appendChild(caption);
 };
+
+// If There Is A Netwrok Error
+function appendNetWorkError() {
+    let caption = document.createElement("caption");
+    caption.appendChild(document.createTextNode("Check Your Connection"));
+    table.appendChild(caption);
+}
