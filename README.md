@@ -6,7 +6,7 @@ A simple frontend project using HTML, CSS, and JavaScript — built entirely by 
 ---
 
 ## Project Description
-### I made this project to practice fetching apis
+### I made this project to practice fetching APIs
 
 This project was created to practice working with APIs.
 It allows users to enter a GitHub username and fetch all public repositories, displaying:
@@ -19,7 +19,7 @@ It allows users to enter a GitHub username and fetch all public repositories, di
 
 ---
 
-- **View The [Live Demo](https://sayyid-abbas.github.io/repo-fetcher/)**
+- **[Live Demo](https://sayyid-abbas.github.io/repo-fetcher/)**
 
 
 ## Contact
