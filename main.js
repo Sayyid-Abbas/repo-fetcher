@@ -3,7 +3,7 @@ let submit = document.querySelector(".submit");
 let table = document.querySelector("table");
 let loader = document.querySelector(".loader");
 
-// Triger The submit Button When Clicking Enter Button
+// Trigger The submit Button When Clicking Enter Button
 input.addEventListener("keydown", (e) => {
     if(e.key === "Enter") {
         submit.click();
@@ -11,19 +11,31 @@ input.addEventListener("keydown", (e) => {
 });
 
 submit.onclick = async () => {
+
+    // We Clear The Table If There Is Previous Data
+    table.innerHTML = "";
+
+    // If The Input Field Is Empty We Do Nothing
     if(input.value.trim().length === 0) {
         return;
     }
-    table.innerHTML = "";
+
+    // We Display The Loading Element
     loader.style.display = "block";
+
+    // Getting The Data From The Fetching Function
     const data = await getData(input.value.trim());
+
+    // After We Get The Data We Display None The Loader Element
     loader.style.display = "none";
+
+    // We Check If The Data Wasn't found Or The Connection Failed Or Zero Repos
     if(data.status === 404) {
         appendNotFound();
     } else if(data.networkError) {
         appendNetWorkError();
     } else {
-        builTable(data);
+        buildTable(data);
     }
 };
 
@@ -32,12 +44,15 @@ submit.onclick = async () => {
 
 // Making A Request Using Promise And XHR
 const getData = async function (userName) {
+    // Try And Catch To Check If The Fetch Goes Well
     try {
-        let myData =  await fetch(`https://api.github.com/users/${userName}/repos`);
-        if(!myData.ok) {
-            return {status: myData.status};
+        let response =  await fetch(`https://api.github.com/users/${userName}/repos`);
+        // If The Response Is Not Ok, We Return The Status
+        if(!response.ok) {
+            return {status: response.status};
         }
-        myData = await myData.json();
+        // If The Response Was Success We Return The Data
+        let myData = await response.json();
         return myData;
     } catch(error) {
         return {networkError: true};
@@ -46,7 +61,7 @@ const getData = async function (userName) {
 
 
 // Bulding The Table
-function builTable(data) {
+function buildTable(data) {
 
     //If There Are No Repos 
     if(data.length === 0) {
@@ -60,12 +75,12 @@ function builTable(data) {
     let thN = document.createElement("th");
     thN.appendChild(document.createTextNode("N"));
     thead.appendChild(thN);
-    let thReopName = document.createElement("th");
-    thReopName.appendChild(document.createTextNode("Repo Name"));
-    thead.appendChild(thReopName);
-    let thOwonerName = document.createElement("th");
-    thOwonerName.appendChild(document.createTextNode("Owner Name"));
-    thead.appendChild(thOwonerName);
+    let thRepoName = document.createElement("th");
+    thRepoName.appendChild(document.createTextNode("Repo Name"));
+    thead.appendChild(thRepoName);
+    let thOwnerName = document.createElement("th");
+    thOwnerName.appendChild(document.createTextNode("Owner Name"));
+    thead.appendChild(thOwnerName);
 
     table.appendChild(thead);
 
